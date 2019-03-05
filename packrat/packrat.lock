@@ -8,6 +8,12 @@ Source: CRAN
 Version: 1.69.0-1
 Hash: 15f597ed227897f4f793b6161260f4b9
 
+Package: DT
+Source: CRAN
+Version: 0.5
+Hash: 5f563b2647721daf61a7559e80fa7dda
+Requires: crosstalk, htmltools, htmlwidgets, magrittr, promises
+
 Package: MASS
 Source: CRAN
 Version: 7.3-51.1
@@ -446,6 +452,12 @@ Version: 1.2.0
 Hash: 6853126283ff0572d9f370a1520ac831
 Requires: R6, crayon, digest, htmltools, httpuv, jsonlite, later, mime,
     promises, rlang, sourcetools, xtable
+
+Package: shinydashboard
+Source: CRAN
+Version: 0.7.1
+Hash: 9ff3e3d1aa83d9ae9b75c6f31e982aa6
+Requires: htmltools, promises, shiny
 
 Package: sourcetools
 Source: CRAN

@@ -1,14 +1,6 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(shinydashboard)
+library(DT)
 library(here)
 
 source(here::here('src', 'helper.R'))
@@ -16,24 +8,22 @@ here()
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
-    dashboardHeader(title = 'OSRS GE Price Forecasts',
-                    titleWidth = 500),
-    dashboardSideBar(disable = FALSE)
-
-
+    dashboardHeader(title = 'OSRS GE Price Forecasts'),
+    dashboardSidebar(),
+    dashboardBody(
+        fluidRow(
+            column(width = 8, box(plotlyOutput("forecasted"), width = NULL)),
+            column(width = 4, box(selectInput("method", 'Select a Model:', c(
+                'Automatic Arima' = 'auto_arima',
+                'Exponential Smoothing' = 'exp_smooth'
+                ))))
+        )
+    )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+    #output$forecasted <- renderPlotly({    })
 }
 
 # Run the application

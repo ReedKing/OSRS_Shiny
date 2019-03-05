@@ -16,7 +16,7 @@ daily <- do.call(rbind, lapply(daily$daily, paste0))
 daily_df <- data.frame(
   date = as.Date(as.POSIXct(
     as.numeric(rownames(daily)) / 1000, origin = '1970-01-01')),
-  price = floor(as.integer(daily) / 1000)
+  price = floor(as.integer(daily))
 )
 
 
@@ -30,7 +30,7 @@ forecast <- forecast(fit_auto_arima, h = 7)
 testplot <- ggplot(daily_df, aes(x = date, y = price)) +
   geom_line(size = 1, color = 'navy') +
   geom_point(size = 1, color = 'navy') +
-  scale_x_date(date_breaks = '1 months', date_labels = "%B %Y") +
+  scale_x_date(date_breaks = '1 month', date_labels = "%B %Y") +
   scale_y_continuous(labels = function(x) paste0(x, "K")) +
   labs(x = 'Date', y = 'Price', title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals')) +
   theme_hc()
@@ -38,13 +38,13 @@ testplot <- ggplot(daily_df, aes(x = date, y = price)) +
 fcstplot <- forecast_plot(
   data = daily_df,
   fcst = forecast,
-  title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals')
+  title = paste(capitalize(item_summary$item$name), 'Forecast vs. Actuals')
 )
 
 fcstplot
 
 ggplotly(testplot)
-ggplotly(fcstplot)
+ggplotly(fcstplot, tooltip = c(""))
 
 ##testplotly <- plot_ly(daily_df, x = ~date, y =~price, type = 'scatter', mode = 'lines+markers', name = 'Price') %>%
 ##  layout(title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals'))
