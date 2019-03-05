@@ -28,14 +28,23 @@ forecast <- forecast(fit_auto_arima, h = 7)
 
 # Graph Models
 testplot <- ggplot(daily_df, aes(x = date, y = price)) +
-  geom_line(size = .7, color = 'navy') +
+  geom_line(size = 1, color = 'navy') +
   geom_point(size = 1, color = 'navy') +
   scale_x_date(date_breaks = '1 months', date_labels = "%B %Y") +
   scale_y_continuous(labels = function(x) paste0(x, "K")) +
   labs(x = 'Date', y = 'Price', title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals')) +
   theme_hc()
-testplot
 
+fcstplot <- forecast_plot(
+  data = daily_df,
+  fcst = forecast,
+  title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals')
+)
+
+fcstplot
+
+ggplotly(testplot)
+ggplotly(fcstplot)
 
 ##testplotly <- plot_ly(daily_df, x = ~date, y =~price, type = 'scatter', mode = 'lines+markers', name = 'Price') %>%
 ##  layout(title = paste(capitalize(item_summary$item$name), 'LW Forecast vs. Actuals'))
